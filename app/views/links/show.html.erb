@@ -1,0 +1,28 @@
+<p1>Username: <%= @link.username %>
+  <br /> Link url: <%= @link.url %>
+ <br /> Description: <%= @link.description %>
+</p1>
+
+<% if @link.comments.any? %>
+    <h4>Here are the comments for this link:</h4>
+
+    <ul>
+      <% @link.comments.each do |p| %>
+        <li>
+          <%= p.username %><%= p.comment %> |
+          <%= link_to "Edit", edit_link_comment_path(@link, p) %> |
+          <%= link_to "Delete", link_comment_path(@link, p),
+                                   :data => {:confirm => "Are you sure?",
+                                                  :method => "delete"} %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>There are no comments yet!</p>
+  <% end %>
+
+  <p><%= link_to "Add a comment", new_link_comment_path(@link) %></p>
+  <p><%= link_to "Delete Link", link_path(@link),
+                          :data => {:confirm => "Are you sure?",
+                                         :method => "delete"} %></p>
+  <p><%= link_to "Return to links", links_path %></p>
